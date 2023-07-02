@@ -1,0 +1,2 @@
+app:
+    configDir: ${CONFIG_DIR:src/test/resources/config/}

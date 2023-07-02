@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TRANSFER xmlns="http://www.interlis.ch/INTERLIS2.3">
+  <HEADERSECTION SENDER="SOGIS-20230701" VERSION="2.3">
+    <MODELS>
+      <MODEL NAME="SO_OGD_Metadata_20230629" VERSION="2023-06-09" URI="https://agi.so.ch"/>
+    </MODELS>
+  </HEADERSECTION>
+  <DATASECTION>
+    <SO_OGD_Metadata_20230629.Datasets BID="SO_OGD_Metadata_20230629.Datasets">
+      <SO_OGD_Metadata_20230629.Datasets.Dataset TID="ch.so.afu.abfallmengen_gemeinden">
+        <Identifier>ch.so.afu.abfallmengen_gemeinden</Identifier>
+        <Title>Ablagerungsmengen in Deponien</Title>
+        <Description>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</Description>
+        <Publisher>
+          <SO_OGD_Metadata_20230629.Office_>
+            <AgencyName>Amt für Geoinformation</AgencyName>
+            <Abbreviation>AGI</Abbreviation>
+            <OfficeAtWeb>https://agi.so.ch</OfficeAtWeb>
+            <Email>mailto:agi@bd.so.ch</Email>
+            <Phone>032 627 75 92</Phone>
+          </SO_OGD_Metadata_20230629.Office_>
+        </Publisher>
+        <Theme>Statistik,Abfall</Theme>
+        <Keywords>Statistik,Abfall</Keywords>
+        <StartDate>1990-01-01</StartDate>
+        <EndDate>2022-12-31</EndDate>
+        <Resources>
+          <SO_OGD_Metadata_20230629.Resource>
+            <Identifier>ch.so.afu.abfallmengen_gemeinden</Identifier>
+            <Title>Ablagerungsmengen in Deponien</Title>
+            <Model>
+              <SO_OGD_Metadata_20230629.ModelLink>
+                <Name>SO_AFU_Abfallmengen_Gemeinden_20230629</Name>
+                <LocationHint>https://geo.so.ch/models</LocationHint>
+              </SO_OGD_Metadata_20230629.ModelLink>
+            </Model>
+            <ConfigId>ch.so.afu.abfallmengen_gemeinden</ConfigId>
+            <lastPublishingDate>2023-07-01</lastPublishingDate>
+            <ClassDescription>
+              <SO_OGD_Metadata_20230629.ClassDescription>
+                <Name>Abfallmengen_Gemeinden</Name>
+                <Title>Abfallmengen_Gemeinden</Title>
+                <AttributeDescription>
+                  <SO_OGD_Metadata_20230629.AttributeDescription>
+                    <Name>jahr</Name>
+                    <Description>Erhebungsjahr</Description>
+                    <DataType>INTEGER</DataType>
+                    <isMandatory>true</isMandatory>
+                  </SO_OGD_Metadata_20230629.AttributeDescription>
+                  <SO_OGD_Metadata_20230629.AttributeDescription>
+                    <Name>abfallart</Name>
+                    <Description>Art des Abfalls</Description>
+                    <DataType>TEXT</DataType>
+                    <isMandatory>true</isMandatory>
+                  </SO_OGD_Metadata_20230629.AttributeDescription>
+                  <SO_OGD_Metadata_20230629.AttributeDescription>
+                    <Name>abfall_kg_pro_einwohner</Name>
+                    <Description>Kilogramm Abfall pro Einwohner</Description>
+                    <DataType>DOUBLE</DataType>
+                    <isMandatory>true</isMandatory>
+                  </SO_OGD_Metadata_20230629.AttributeDescription>
+                  <SO_OGD_Metadata_20230629.AttributeDescription>
+                    <Name>wiederverwertung</Name>
+                    <Description>Was bedeutet das genau?</Description>
+                    <DataType>ENUMERATION</DataType>
+                    <isMandatory>true</isMandatory>
+                  </SO_OGD_Metadata_20230629.AttributeDescription>
+                </AttributeDescription>
+              </SO_OGD_Metadata_20230629.ClassDescription>
+            </ClassDescription>
+            <FileFormats>
+              <SO_OGD_Metadata_20230629.FileFormat>
+                <Name>CSV</Name>
+                <Abbreviation>CSV</Abbreviation>
+                <MimeType>text/csv</MimeType>
+                <Extension>csv</Extension>
+              </SO_OGD_Metadata_20230629.FileFormat>
+              <SO_OGD_Metadata_20230629.FileFormat>
+                <Name>Parquet</Name>
+                <Abbreviation>PQT</Abbreviation>
+                <MimeType>application/x-parquet</MimeType>
+                <Extension>parquet</Extension>
+              </SO_OGD_Metadata_20230629.FileFormat>
+              <SO_OGD_Metadata_20230629.FileFormat>
+                <Name>Excel</Name>
+                <Abbreviation>XLSX</Abbreviation>
+                <MimeType>application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</MimeType>
+                <Extension>xlsx</Extension>
+              </SO_OGD_Metadata_20230629.FileFormat>
+            </FileFormats>
+          </SO_OGD_Metadata_20230629.Resource>
+        </Resources>
+      </SO_OGD_Metadata_20230629.Datasets.Dataset>
+    </SO_OGD_Metadata_20230629.Datasets>
+  </DATASECTION>
+</TRANSFER>

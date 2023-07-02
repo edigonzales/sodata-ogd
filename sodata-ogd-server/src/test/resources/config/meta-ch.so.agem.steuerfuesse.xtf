@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TRANSFER xmlns="http://www.interlis.ch/INTERLIS2.3">
+  <HEADERSECTION SENDER="SOGIS-20230701" VERSION="2.3">
+    <MODELS>
+      <MODEL NAME="SO_OGD_Metadata_20230629" VERSION="2023-06-09" URI="https://agi.so.ch"/>
+    </MODELS>
+  </HEADERSECTION>
+  <DATASECTION>
+    <SO_OGD_Metadata_20230629.Datasets BID="SO_OGD_Metadata_20230629.Datasets">
+      <SO_OGD_Metadata_20230629.Datasets.Dataset TID="ch.so.agem.steuerfuesse">
+        <Identifier>ch.so.agem.steuerfuesse</Identifier>
+        <Title>Ich bin ein Titel</Title>
+        <Description>Ich bin eine Beschreibung</Description>
+        <Publisher>
+          <SO_OGD_Metadata_20230629.Office_>
+            <AgencyName>Amt für Gemeinden</AgencyName>
+            <Abbreviation>AGEM</Abbreviation>
+            <OfficeAtWeb>https://agem.so.ch</OfficeAtWeb>
+            <Email>mailto:agem@vd.so.ch</Email>
+            <Phone>032 627 23 57</Phone>
+          </SO_OGD_Metadata_20230629.Office_>
+        </Publisher>
+        <Theme>Statistik,Finanzen</Theme>
+        <Keywords>Statistik,Finanzen,Steuerfuss,Steuerfüsse</Keywords>
+        <StartDate>1990-01-01</StartDate>
+        <EndDate>2022-12-31</EndDate>
+        <Resources>
+          <SO_OGD_Metadata_20230629.Resource>
+            <Identifier>ch.so.agem.steuerfuesse.natuerliche_personen</Identifier>
+            <Title>Steuerfüsse Natürliche Personen</Title>
+            <Model>
+              <SO_OGD_Metadata_20230629.ModelLink>
+                <Name>SO_AGEM_Steuerfuesse_NP_20230629</Name>
+                <LocationHint>https://geo.so.ch/models</LocationHint>
+              </SO_OGD_Metadata_20230629.ModelLink>
+            </Model>
+            <ConfigId>ch.so.agem.steuerfuesse.natuerliche_personen</ConfigId>
+            <lastPublishingDate>2023-07-01</lastPublishingDate>
+            <ClassDescription>
+              <SO_OGD_Metadata_20230629.ClassDescription>
+                <Name>Steuerfuss_Natuerliche_Personen</Name>
+                <Title>Steuerfuss_Natuerliche_Personen</Title>
+                <AttributeDescription>
+                  <SO_OGD_Metadata_20230629.AttributeDescription>
+                    <Name>jahr</Name>
+                    <Description>Erhebungsjahr</Description>
+                    <DataType>INTEGER</DataType>
+                    <isMandatory>true</isMandatory>
+                  </SO_OGD_Metadata_20230629.AttributeDescription>
+                  <SO_OGD_Metadata_20230629.AttributeDescription>
+                    <Name>gemeinde</Name>
+                    <Description>Name der politischen Gemeinde</Description>
+                    <DataType>TEXT</DataType>
+                    <isMandatory>true</isMandatory>
+                  </SO_OGD_Metadata_20230629.AttributeDescription>
+                  <SO_OGD_Metadata_20230629.AttributeDescription>
+                    <Name>steuerfuss_in_prozent</Name>
+                    <Description>Steuerfuss in Prozent. Fehlende Werte aufgrund Gemeindefusionen, da momentan nur aktuelle Gemeinden vorliegend.</Description>
+                    <DataType>INTEGER</DataType>
+                    <isMandatory>false</isMandatory>
+                  </SO_OGD_Metadata_20230629.AttributeDescription>
+                </AttributeDescription>
+              </SO_OGD_Metadata_20230629.ClassDescription>
+            </ClassDescription>
+            <FileFormats>
+              <SO_OGD_Metadata_20230629.FileFormat>
+                <Name>CSV</Name>
+                <Abbreviation>CSV</Abbreviation>
+                <MimeType>text/csv</MimeType>
+                <Extension>csv</Extension>
+              </SO_OGD_Metadata_20230629.FileFormat>
+              <SO_OGD_Metadata_20230629.FileFormat>
+                <Name>Parquet</Name>
+                <Abbreviation>PQT</Abbreviation>
+                <MimeType>application/x-parquet</MimeType>
+                <Extension>parquet</Extension>
+              </SO_OGD_Metadata_20230629.FileFormat>
+              <SO_OGD_Metadata_20230629.FileFormat>
+                <Name>Excel</Name>
+                <Abbreviation>XLSX</Abbreviation>
+                <MimeType>application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</MimeType>
+                <Extension>xlsx</Extension>
+              </SO_OGD_Metadata_20230629.FileFormat>
+            </FileFormats>
+          </SO_OGD_Metadata_20230629.Resource>
+        </Resources>
+      </SO_OGD_Metadata_20230629.Datasets.Dataset>
+    </SO_OGD_Metadata_20230629.Datasets>
+  </DATASECTION>
+</TRANSFER>

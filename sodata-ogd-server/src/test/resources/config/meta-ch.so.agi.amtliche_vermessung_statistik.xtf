@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TRANSFER xmlns="http://www.interlis.ch/INTERLIS2.3">
+  <HEADERSECTION SENDER="SOGIS-20230701" VERSION="2.3">
+    <MODELS>
+      <MODEL NAME="SO_OGD_Metadata_20230629" VERSION="2023-06-09" URI="https://agi.so.ch"/>
+    </MODELS>
+  </HEADERSECTION>
+  <DATASECTION>
+    <SO_OGD_Metadata_20230629.Datasets BID="SO_OGD_Metadata_20230629.Datasets">
+      <SO_OGD_Metadata_20230629.Datasets.Dataset TID="ch.so.agi.amtliche_vermessung_statistik">
+        <Identifier>ch.so.agi.amtliche_vermessung_statistik</Identifier>
+        <Title>Statistische Kennzahlen der amtlichen Vermessung</Title>
+        <Description>Statistische Kennzahlen der amtlichen Vermessung über Personal und Umsatz in den Jahren 1983 bis 2022.</Description>
+        <Publisher>
+          <SO_OGD_Metadata_20230629.Office_>
+            <AgencyName>Amt für Geoinformation</AgencyName>
+            <Abbreviation>AGI</Abbreviation>
+            <OfficeAtWeb>https://agi.so.ch</OfficeAtWeb>
+            <Email>mailto:agi@bd.so.ch</Email>
+            <Phone>032 627 75 92</Phone>
+          </SO_OGD_Metadata_20230629.Office_>
+        </Publisher>
+        <Theme>Statistik,Amtliche Vermessung</Theme>
+        <Keywords>Statistik,Amtliche Vermessung</Keywords>
+        <StartDate>1983-01-01</StartDate>
+        <EndDate>2022-12-31</EndDate>
+        <Resources>
+          <SO_OGD_Metadata_20230629.Resource>
+            <Identifier>ch.so.agi.amtliche_vermessung_statistik.umsatz</Identifier>
+            <Title>Umsatz pro Jahr</Title>
+            <Model>
+              <SO_OGD_Metadata_20230629.ModelLink>
+                <Name>SO_AGI_Amtliche_Vermessung_Statistik_Umsatz_20230625</Name>
+                <LocationHint>https://geo.so.ch/models</LocationHint>
+              </SO_OGD_Metadata_20230629.ModelLink>
+            </Model>
+            <ConfigId>ch.so.agi.amtliche_vermessung_statistik.umsatz</ConfigId>
+            <lastPublishingDate>2023-07-01</lastPublishingDate>
+            <ClassDescription>
+              <SO_OGD_Metadata_20230629.ClassDescription>
+                <Name>Umsatz</Name>
+                <Title>Umsatz</Title>
+                <AttributeDescription>
+                  <SO_OGD_Metadata_20230629.AttributeDescription>
+                    <Name>jahr</Name>
+                    <Description>Erhebungsjahr</Description>
+                    <DataType>INTEGER</DataType>
+                    <isMandatory>true</isMandatory>
+                  </SO_OGD_Metadata_20230629.AttributeDescription>
+                  <SO_OGD_Metadata_20230629.AttributeDescription>
+                    <Name>anzahl_grenzmutationen</Name>
+                    <Description>Anzahl Grenzmutationen</Description>
+                    <DataType>INTEGER</DataType>
+                    <isMandatory>true</isMandatory>
+                  </SO_OGD_Metadata_20230629.AttributeDescription>
+                  <SO_OGD_Metadata_20230629.AttributeDescription>
+                    <Name>anzahl_gebaeudemutationen</Name>
+                    <Description>Anzahl Gebäudemutationen</Description>
+                    <DataType>INTEGER</DataType>
+                    <isMandatory>true</isMandatory>
+                  </SO_OGD_Metadata_20230629.AttributeDescription>
+                  <SO_OGD_Metadata_20230629.AttributeDescription>
+                    <Name>umsatz_in_chf</Name>
+                    <Description>Gesamtumsatz in CHF</Description>
+                    <DataType>INTEGER</DataType>
+                    <isMandatory>true</isMandatory>
+                  </SO_OGD_Metadata_20230629.AttributeDescription>
+                </AttributeDescription>
+              </SO_OGD_Metadata_20230629.ClassDescription>
+            </ClassDescription>
+            <FileFormats>
+              <SO_OGD_Metadata_20230629.FileFormat>
+                <Name>CSV</Name>
+                <Abbreviation>CSV</Abbreviation>
+                <MimeType>text/csv</MimeType>
+                <Extension>csv</Extension>
+              </SO_OGD_Metadata_20230629.FileFormat>
+              <SO_OGD_Metadata_20230629.FileFormat>
+                <Name>Parquet</Name>
+                <Abbreviation>PQT</Abbreviation>
+                <MimeType>application/x-parquet</MimeType>
+                <Extension>parquet</Extension>
+              </SO_OGD_Metadata_20230629.FileFormat>
+              <SO_OGD_Metadata_20230629.FileFormat>
+                <Name>Excel</Name>
+                <Abbreviation>XLSX</Abbreviation>
+                <MimeType>application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</MimeType>
+                <Extension>xlsx</Extension>
+              </SO_OGD_Metadata_20230629.FileFormat>
+            </FileFormats>
+          </SO_OGD_Metadata_20230629.Resource>
+          <SO_OGD_Metadata_20230629.Resource>
+            <Identifier>ch.so.agi.amtliche_vermessung_statistik.personal</Identifier>
+            <Title>Personal in der amtlichen Vermessung</Title>
+            <Model>
+              <SO_OGD_Metadata_20230629.ModelLink>
+                <Name>SO_AGI_Amtliche_Vermessung_Statistik_Personal_20230625</Name>
+                <LocationHint>https://geo.so.ch/models</LocationHint>
+              </SO_OGD_Metadata_20230629.ModelLink>
+            </Model>
+            <ConfigId>ch.so.agi.amtliche_vermessung_statistik.personal</ConfigId>
+            <lastPublishingDate>2023-07-01</lastPublishingDate>
+            <ClassDescription>
+              <SO_OGD_Metadata_20230629.ClassDescription>
+                <Name>Personal</Name>
+                <Title>Personal</Title>
+                <AttributeDescription>
+                  <SO_OGD_Metadata_20230629.AttributeDescription>
+                    <Name>jahr</Name>
+                    <Description>Erhebungsjahr</Description>
+                    <DataType>INTEGER</DataType>
+                    <isMandatory>true</isMandatory>
+                  </SO_OGD_Metadata_20230629.AttributeDescription>
+                  <SO_OGD_Metadata_20230629.AttributeDescription>
+                    <Name>ingenieur_geometer</Name>
+                    <Description>Anzahl patentierte Ingenieur-Geometer</Description>
+                    <DataType>INTEGER</DataType>
+                    <isMandatory>true</isMandatory>
+                  </SO_OGD_Metadata_20230629.AttributeDescription>
+                  <SO_OGD_Metadata_20230629.AttributeDescription>
+                    <Name>geomatiker</Name>
+                    <Description>Anzahl Ingenieure FH und Techniker</Description>
+                    <DataType>INTEGER</DataType>
+                    <isMandatory>true</isMandatory>
+                  </SO_OGD_Metadata_20230629.AttributeDescription>
+                  <SO_OGD_Metadata_20230629.AttributeDescription>
+                    <Name>ingenieur_fh_techniker</Name>
+                    <Description>Anzahl Geomatiker</Description>
+                    <DataType>INTEGER</DataType>
+                    <isMandatory>true</isMandatory>
+                  </SO_OGD_Metadata_20230629.AttributeDescription>
+                  <SO_OGD_Metadata_20230629.AttributeDescription>
+                    <Name>lernende</Name>
+                    <Description>Anzahl Lernende</Description>
+                    <DataType>INTEGER</DataType>
+                    <isMandatory>true</isMandatory>
+                  </SO_OGD_Metadata_20230629.AttributeDescription>
+                </AttributeDescription>
+              </SO_OGD_Metadata_20230629.ClassDescription>
+            </ClassDescription>
+            <FileFormats>
+              <SO_OGD_Metadata_20230629.FileFormat>
+                <Name>CSV</Name>
+                <Abbreviation>CSV</Abbreviation>
+                <MimeType>text/csv</MimeType>
+                <Extension>csv</Extension>
+              </SO_OGD_Metadata_20230629.FileFormat>
+              <SO_OGD_Metadata_20230629.FileFormat>
+                <Name>Parquet</Name>
+                <Abbreviation>PQT</Abbreviation>
+                <MimeType>application/x-parquet</MimeType>
+                <Extension>parquet</Extension>
+              </SO_OGD_Metadata_20230629.FileFormat>
+              <SO_OGD_Metadata_20230629.FileFormat>
+                <Name>Excel</Name>
+                <Abbreviation>XLSX</Abbreviation>
+                <MimeType>application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</MimeType>
+                <Extension>xlsx</Extension>
+              </SO_OGD_Metadata_20230629.FileFormat>
+            </FileFormats>
+          </SO_OGD_Metadata_20230629.Resource>
+        </Resources>
+      </SO_OGD_Metadata_20230629.Datasets.Dataset>
+    </SO_OGD_Metadata_20230629.Datasets>
+  </DATASECTION>
+</TRANSFER>
