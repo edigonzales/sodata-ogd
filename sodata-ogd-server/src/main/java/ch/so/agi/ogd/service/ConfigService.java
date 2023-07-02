@@ -1,7 +1,10 @@
 package ch.so.agi.ogd.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ch.interlis.ili2c.Ili2c;
 import ch.interlis.ili2c.Ili2cFailure;
@@ -31,7 +34,10 @@ import org.slf4j.LoggerFactory;
 @Service
 public class ConfigService {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-        
+    
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @Value("${app.configDir}")
     private String CONFIG_DIR;   
     
@@ -51,6 +57,7 @@ public class ConfigService {
 
         // Für Umwandlung iox2json
         TransferDescription td = getTransferdescription();
+        //objectMapper.createGenerator(null)
         
         for (Path xtfFile : xtfFiles) {
             XtfReader xtfReader = new XtfReader(xtfFile.toFile());
@@ -63,7 +70,7 @@ public class ConfigService {
                     IomObject iomObj = objectEvent.getIomObject();
                     log.debug("TID <{}>", iomObj.getobjectoid());
                     
-                    // Mit iox2json propieren.
+                    // Mit iox2json probieren.
                     
                     iomObjMap.put("Identifier", iomObj.getattrvalue("Identifier"));
                     iomObjMap.put("Title", iomObj.getattrvalue("Title"));
