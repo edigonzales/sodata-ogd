@@ -1,2 +1,3 @@
 app:
     configDir: ${CONFIG_DIR:src/test/resources/config/}
+    filesServerUrl: ${FILES_SERVER_URL:https://files.geo.so.ch}    

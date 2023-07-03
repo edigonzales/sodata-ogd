@@ -8,4 +8,8 @@ public interface MyMessages extends Messages {
     
     @DefaultMessage("Füü {0} bar {1}")
     String yinyang(String yin, String yang);
+    
+    // Search
+    @DefaultMessage("Search terms")
+    String search_terms();
 }

@@ -81,7 +81,6 @@ public class ConfigService {
             IoxEvent event = xtfReader.read();
             while (event instanceof IoxEvent) {
                 if (event instanceof ObjectEvent) {
-                    Map<String,Object> iomObjMap = new HashMap<>();
                     ObjectEvent objectEvent = (ObjectEvent) event;
                     IomObject iomObj = objectEvent.getIomObject();
                     log.debug("TID <{}>", iomObj.getobjectoid());
@@ -97,8 +96,6 @@ public class ConfigService {
                     String jsonString = writer.toString();
                     iomObjectJsonList.add(jsonString);
                     iomObjectJsonMap.put(iomObj.getobjectoid(), jsonString);
-
-//                    log.debug("***: "+writer.toString());
                 }
                 event = xtfReader.read();
             }

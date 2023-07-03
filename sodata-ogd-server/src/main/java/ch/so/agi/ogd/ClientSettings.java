@@ -7,14 +7,14 @@ import org.springframework.stereotype.Component;
 @Component
 @EnableConfigurationProperties
 @ConfigurationProperties(prefix = "app")
-public class Settings {
-    private String myVar;
+public class ClientSettings {
+    private String filesServerUrl;
 
-    public String getMyVar() {
-        return myVar;
+    public String getFilesServerUrl() {
+        return filesServerUrl;
     }
 
-    public void setMyVar(String myVar) {
-        this.myVar = myVar;
+    public void setFilesServerUrl(String filesServerUrl) {
+        this.filesServerUrl = filesServerUrl;
     }
 }

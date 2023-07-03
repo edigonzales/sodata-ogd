@@ -48,3 +48,4 @@ lucene:
 app:
     myVar: ${VAR:defaultValue}
     configDir: ${CONFIG_DIR:/config/}
+    filesServerUrl: ${FILES_SERVER_URL:https://files.geo.so.ch}

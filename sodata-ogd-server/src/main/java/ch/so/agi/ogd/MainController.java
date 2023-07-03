@@ -34,7 +34,7 @@ public class MainController {
     private Integer QUERY_MAX_RECORDS;   
 
     @Autowired
-    Settings settings;
+    ClientSettings settings;
     
     @Autowired
     ConfigService configService;
@@ -57,6 +57,11 @@ public class MainController {
 //        return new ResponseEntity<Map<String,Object>>(configService.getIomObjectJsonMap(), HttpStatus.OK);
 //    }
     
+    @RequestMapping(value = "/settings", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ClientSettings settings() {
+        return settings;
+    }
+
     @RequestMapping(value = "/datasets", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public String searchThemePublications(@RequestParam(value="query", required=false) String searchTerms) { 
         if (searchTerms == null || searchTerms.trim().length() == 0) {
