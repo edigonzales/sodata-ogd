@@ -43,8 +43,7 @@ management:
 # APPLICATION
 # ========================   
 lucene:
-    queryDefaultRecords: ${LUCENE_QUERY_DEFAULT_RECORDS:10}
-    queryMaxRecords: ${LUCENE_QUERY_MAX_RECORDS:50}
+    queryMaxRecords: ${LUCENE_QUERY_MAX_RECORDS:500}
 
 app:
     myVar: ${VAR:defaultValue}

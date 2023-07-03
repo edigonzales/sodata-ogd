@@ -4,8 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import ch.ehi.ili2db.json.Iox2json;
+import ch.ehi.ili2db.json.Iox2jsonUtility;
 import ch.interlis.ili2c.Ili2c;
 import ch.interlis.ili2c.Ili2cFailure;
 import ch.interlis.ili2c.metamodel.TransferDescription;
@@ -15,9 +18,12 @@ import ch.interlis.iox.IoxEvent;
 import ch.interlis.iox.IoxException;
 import ch.interlis.iox_j.ObjectEvent;
 import ch.so.agi.ogd.Utils;
+import ch.so.agi.ogd.repository.LuceneDatasetRepository;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -38,15 +44,25 @@ public class ConfigService {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private LuceneDatasetRepository luceneDatasetRepository;
+
     @Value("${app.configDir}")
     private String CONFIG_DIR;   
     
-    public IomObject iomObject;
-    public Map<String,Object> iomObjMap;
+    private Map<String, String> iomObjectJsonMap = new HashMap<>();
+    
+    public Map<String, String> getIomObjectJsonMap() {
+        return iomObjectJsonMap;
+    }
 
+    private List<String> iomObjectJsonList = new ArrayList<>();
+
+    public List<String> getIomObjectJsonList() {
+        return iomObjectJsonList;
+    }
+    
     public void parseXtfFiles() throws IOException, IoxException, Ili2cFailure {
-        System.out.println(Paths.get(CONFIG_DIR).toFile().getAbsolutePath());
-                
         List<Path> xtfFiles = new ArrayList<Path>();
         try (Stream<Path> walk = Files.walk(Paths.get(CONFIG_DIR), 1)) {
             xtfFiles = walk
@@ -57,8 +73,8 @@ public class ConfigService {
 
         // Für Umwandlung iox2json
         TransferDescription td = getTransferdescription();
-        //objectMapper.createGenerator(null)
         
+        List<IomObject> iomObjectList = new ArrayList<>();
         for (Path xtfFile : xtfFiles) {
             XtfReader xtfReader = new XtfReader(xtfFile.toFile());
             
@@ -69,22 +85,26 @@ public class ConfigService {
                     ObjectEvent objectEvent = (ObjectEvent) event;
                     IomObject iomObj = objectEvent.getIomObject();
                     log.debug("TID <{}>", iomObj.getobjectoid());
-                    
-                    // Mit iox2json probieren.
-                    
-                    iomObjMap.put("Identifier", iomObj.getattrvalue("Identifier"));
-                    iomObjMap.put("Title", iomObj.getattrvalue("Title"));
-                    iomObjMap.put("Description", iomObj.getattrvalue("Description"));
-                    
-                    
-                    this.iomObjMap = iomObjMap;
-                    this.iomObject = iomObj;
-                    
 
+                    iomObjectList.add(iomObj);
+                    
+                    IomObject[] iomObjects = new IomObject[] {iomObj};                    
+                    Writer writer = new StringWriter();
+                    JsonGenerator jg = objectMapper.createGenerator(writer);
+                    Iox2jsonUtility.write(jg, iomObjects, td);
+                    jg.flush();
+                    jg.close();
+                    String jsonString = writer.toString();
+                    iomObjectJsonList.add(jsonString);
+                    iomObjectJsonMap.put(iomObj.getobjectoid(), jsonString);
+
+//                    log.debug("***: "+writer.toString());
                 }
                 event = xtfReader.read();
             }
         }
+        
+        luceneDatasetRepository.saveAll(iomObjectList);        
     } 
     
     private TransferDescription getTransferdescription() throws IOException, Ili2cFailure {        
