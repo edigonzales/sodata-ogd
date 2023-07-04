@@ -9,8 +9,8 @@
     <SO_OGD_Metadata_20230629.Datasets BID="SO_OGD_Metadata_20230629.Datasets">
       <SO_OGD_Metadata_20230629.Datasets.Dataset TID="ch.so.agem.steuerfuesse">
         <Identifier>ch.so.agem.steuerfuesse</Identifier>
-        <Title>Ich bin ein Titel</Title>
-        <Description>Ich bin eine Beschreibung</Description>
+        <Title>Steuerfüsse der Gemeinden</Title>
+        <Description>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</Description>
         <Publisher>
           <SO_OGD_Metadata_20230629.Office_>
             <AgencyName>Amt für Gemeinden</AgencyName>

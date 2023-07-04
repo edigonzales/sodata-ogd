@@ -19,7 +19,7 @@ body, div {
 
 .field-group input, .field-group textarea {
     font-family: Frutiger, 'Fira Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;   
-    font-size: 16px;   
+    font-size: 20px;   
     font-weight: 300;     
 }
 
@@ -105,6 +105,29 @@ a.default-link:after {
     margin-bottom: 30px;
 }
 
+#datasets-table {
+    margin-top: 40px;
+    width: 100%;
+    font-size: 20px;    
+}
+
+#datasets-table th {
+    padding: 10px;
+}
+
+#datasets-table tr {
+    line-height: 2.5;
+    border-bottom: 1px solid rgb(238,238,238);
+}
+
+#datasets-table td {
+    padding: 10px 10px 10px 10px !important;
+}
+
+#datasets-table tr:hover {
+  background-color: rgb(238,238,238) !important;
+}
+
 .bg-l-4-grey {
     color: #999999 !important;
     font-weight: 300 !important;
@@ -118,6 +141,10 @@ a.default-link:after {
 .bg-l-2-grey {
     color: #333333 !important;
     font-weight: 300 !important;
+}
+
+.badge-link {
+	font-size: 18px;
 }
 
 a.badge-link {
@@ -145,12 +172,19 @@ a.badge-link:visited {
 }
 
 .model-header {
-    font-size: 16px !important;
+    font-size: 20px !important;
     color: #333333 !important;  
 }
 
+.modal.modal-lg {
+    margin-left: 10% !important;
+    margin-right: 10% !important;
+    margin-top: 30px !important;
+    width: 80% !important;
+}
+
 .modal .modal-content .modal-body {
-    font-size: 16px !important;
+    font-size: 20px !important;
     color: #333333 !important;
 }
 
@@ -159,7 +193,64 @@ a.badge-link:visited {
 }
 
 h4, .h4 {
-    font-size: 16px !important;
+    font-size: 24px !important;
+}
+
+h5, .h5 {
+    font-size: 20px !important;
+}
+
+.meta-dataset-description-paragraph {
+    padding-bottom: 20px;
+}
+
+.meta-table-description-paragraph-title {
+    font-style: italic;
+    padding-bottom: 10px;
+}
+
+.meta-table-description-paragraph .th {
+	font-weight: 400 !important;
+	font-style: italic !important;
+}
+
+.meta-details {
+    padding-bottom: 15px;
+}
+
+.meta-summary {
+    display: list-item; /* firefox only */
+}
+
+.meta-table-description-paragraph {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    /*padding-left: 15px;*/
+    /*background-color: rgba(237, 237, 237, 0.3);*/
+}
+
+.meta-tables-paragraph {
+    padding-bottom: 20px;
+}
+
+.meta-table {
+    display: grid;
+    grid-template-columns: 1fr 80%; 
+    max-width: 100%;
+}
+
+.meta-table > div {
+  margin: 2px;
+  /*background: powderblue;*/
+  padding: 5px;
+}
+
+.meta-table > div:nth-child(3n+2) {
+  /*background: lemonchiffon;*/
+}
+
+.meta-table > div:nth-child(3n+3) {
+  /*background: palegreen;*/
 }
 
 .modal-paragraph {
@@ -177,4 +268,16 @@ h4, .h4 {
 .modal-meta-paragraph {
 	padding-top: 5px;
 	padding-bottom: 5px;
+}
+
+.attr-cell {
+    vertical-align: top;
+    padding-left: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-right: 10px;
+}
+
+.hide {
+    display: none;
 }
