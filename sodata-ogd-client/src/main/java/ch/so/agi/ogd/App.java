@@ -207,9 +207,9 @@ public class App implements EntryPoint {
         });
         topLevelContent.appendChild(breadcrumb.element());
 
-        topLevelContent.appendChild(div().css("sodata-title").textContent("Offene Daten Kanton Solothurn").element());
+        topLevelContent.appendChild(div().css("sodata-title").textContent("Offene Daten Kanton Fubar").element());
 
-        String infoString = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor "
+        String infoString = "Fake. Test. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor "
                 + "finden Sie <a class='default-link' href='https://so.ch/verwaltung/bau-und-justizdepartement/amt-fuer-geoinformation/geoportal/geodaten-herunterladen/' target='_blank'>hier</a>.";
 
         topLevelContent.appendChild(div().css("info").innerHtml(SafeHtmlUtils.fromTrustedString(infoString)).element());
@@ -332,8 +332,11 @@ public class App implements EntryPoint {
                         
             JsArray<?> resources;
             try {
-                resources = Js.cast(datasetObj.get("Resources"));                
-            } catch (java.lang.ClassCastException e) {                
+                resources = Js.cast(datasetObj.get("Resources"));  
+                JsArray<?> foo = new JsArray();
+                console.log("ich konnte zum Array casten");
+            } catch (java.lang.ClassCastException e) {
+                console.log("ich konnte nicht zum Array casten und muss es händisch machen.");
                 JsPropertyMap<?> resourcesMap = Js.cast(datasetObj.get("Resources"));      
                 resources = JsArray.of(resourcesMap);
             }
@@ -358,12 +361,17 @@ public class App implements EntryPoint {
             
             // Title
             String title = ((JsString) datasetObj.get("Title")).normalize();
+            console.log(title);
             HTMLTableCellElement tdParentTitle = td().attr("colspan", "2").add(title).element();
             tr.appendChild(tdParentTitle);
             
             // Publication date
             JsPropertyMap<?> resourceTmp = Js.cast(resources.getAt(0));
+            console.log("foo1");
+            console.log(resources);
+            console.log(resourceTmp);
             String dateString = ((JsString) resourceTmp.get("lastPublishingDate")).normalize();
+            console.log("foo2");
             Date date = DateTimeFormat.getFormat("yyyy-MM-dd").parse(dateString);
             String formattedDateString = DateTimeFormat.getFormat("dd.MM.yyyy").format(date);
             tr.appendChild(td().add(formattedDateString).element()); 
@@ -434,7 +442,9 @@ public class App implements EntryPoint {
                     JsPropertyMap<?> resource = Js.cast(resourcesList.get(j));
                     String resourceName = ((JsString) resource.get("Title")).normalize();
                     
+                    console.log("foo3");
                     String resourceDateString = ((JsString) resource.get("lastPublishingDate")).normalize();
+                    console.log("foo4");
                     Date resourceDate = DateTimeFormat.getFormat("yyyy-MM-dd").parse(resourceDateString);
                     String formattedResourceDateString = DateTimeFormat.getFormat("dd.MM.yyyy").format(resourceDate);
                     
