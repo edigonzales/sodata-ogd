@@ -5,43 +5,46 @@ on:
   push:
 
 jobs:
-#   build-native:
-#     env:
-#       DOCKER_ACCOUNT: sogis
-#       DOCKER_REPO: sodata
-#       DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-#       DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}} 
-#       #DIGITALOCEAN_TOKEN: ${{secrets.DIGITALOCEAN_TOKEN}}
-#       BUILD_NUMBER: ${{ github.run_number }}
-#       VERSION: 0.0.${{ github.run_number }}
+  build-native:
+    env:
+      DOCKER_ACCOUNT: sogis
+      DOCKER_REPO: sodata-ogd
+      DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+      DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}} 
+      #DIGITALOCEAN_TOKEN: ${{secrets.DIGITALOCEAN_TOKEN}}
+      BUILD_NUMBER: ${{ github.run_number }}
+      VERSION: 0.0.${{ github.run_number }}
 
-#     runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-#     steps:
-#       - uses: actions/checkout@v3
+    permissions:
+      contents: read
+      packages: write
 
-#       - uses: actions/cache@v3
-#         with:
-#           path: ~/.m2/repository
-#           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-#           restore-keys: |
-#             ${{ runner.os }}-maven-
+    steps:
+      - uses: actions/checkout@v3
 
-#       - uses: graalvm/setup-graalvm@v1
-#         with:
-#           version: '22.2.0'
-#           java-version: '17'
-#           components: 'native-image'
-#           #native-image-musl: 'true'
-#           github-token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
 
-#       - name: Build native image
-#         run: |
-#           export CONFIG_FILE=$PWD/sodata-server/datasearch.xml 
-#           export ITEMS_GEOJSON_DIR=/tmp/
-#           ./mvnw -Pnative test
-#           ./mvnw -DskipTests -Penv-prod,native package
-#           ls -la sodata-server/target
+      - uses: graalvm/setup-graalvm@v1
+        with:
+          version: '22.2.0'
+          java-version: '17'
+          components: 'native-image'
+          #native-image-musl: 'true'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build native image
+        run: |
+          export CONFIG_DIR=$PWD/sodata-ogd-server/src/test/resources/config/ 
+          ./mvnw -Pnative test
+          ./mvnw -DskipTests -Penv-prod,native package
+          ls -la sodata-ogd-server/target
 
 #       - name: Set up QEMU for amd64
 #         uses: docker/setup-qemu-action@v2
@@ -162,14 +165,18 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           pull: true
           push: ${{ (github.ref == 'refs/heads/main') && (github.event_name != 'pull_request') && !env.ACT }}
+          # tags: |
+          #   ${{ env.DOCKER_ACCOUNT }}/${{ env.DOCKER_REPO }}:latest
+          #   ${{ env.DOCKER_ACCOUNT }}/${{ env.DOCKER_REPO }}:${{ env.VERSION }}
+          #   ${{ env.DOCKER_ACCOUNT }}/${{ env.DOCKER_REPO }}:0.0
+          #   ${{ env.DOCKER_ACCOUNT }}/${{ env.DOCKER_REPO }}:0
+          #   ghcr.io/${{ env.DOCKER_ACCOUNT }}/${{ env.DOCKER_REPO }}:latest
+          #   ghcr.io/${{ env.DOCKER_ACCOUNT }}/${{ env.DOCKER_REPO }}:${{ env.VERSION }}
+          #   ghcr.io/${{ env.DOCKER_ACCOUNT }}/${{ env.DOCKER_REPO }}:0.0
+          #   ghcr.io/${{ env.DOCKER_ACCOUNT }}/${{ env.DOCKER_REPO }}:0
           tags: |
             ${{ env.DOCKER_ACCOUNT }}/${{ env.DOCKER_REPO }}:latest
             ${{ env.DOCKER_ACCOUNT }}/${{ env.DOCKER_REPO }}:${{ env.VERSION }}
             ${{ env.DOCKER_ACCOUNT }}/${{ env.DOCKER_REPO }}:0.0
             ${{ env.DOCKER_ACCOUNT }}/${{ env.DOCKER_REPO }}:0
-            ghcr.io/${{ env.DOCKER_ACCOUNT }}/${{ env.DOCKER_REPO }}:latest
-            ghcr.io/${{ env.DOCKER_ACCOUNT }}/${{ env.DOCKER_REPO }}:${{ env.VERSION }}
-            ghcr.io/${{ env.DOCKER_ACCOUNT }}/${{ env.DOCKER_REPO }}:0.0
-            ghcr.io/${{ env.DOCKER_ACCOUNT }}/${{ env.DOCKER_REPO }}:0
-
 
