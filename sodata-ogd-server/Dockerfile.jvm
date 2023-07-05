@@ -1,7 +1,7 @@
-FROM bellsoft/liberica-openjdk-alpine-musl:17.0.4
+FROM bellsoft/liberica-openjdk-alpine-musl:17.0.7
 
 ARG UID=1001
-RUN adduser -S sodata -u $UID
+RUN adduser -S sodataogd -u $UID
 
 WORKDIR /config
 RUN chown $UID:0 . && \
@@ -13,7 +13,7 @@ VOLUME ["/config"]
 ENV HOME=/app
 WORKDIR $HOME
 
-COPY target/sodata-exec.jar ./application.jar
+COPY target/sodata-ogd-exec.jar ./application.jar
 
 RUN chown $UID:0 . && \
     chmod 0775 . && \

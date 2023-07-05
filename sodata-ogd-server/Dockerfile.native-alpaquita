@@ -1,7 +1,7 @@
 FROM bellsoft/alpaquita-linux-base:stream-glibc
 
 ARG UID=1001
-RUN adduser -S sodata -u $UID
+RUN adduser -S sodataogd -u $UID
 
 WORKDIR /config
 RUN chown $UID:0 . && \
@@ -13,7 +13,7 @@ VOLUME ["/config"]
 ENV HOME=/app
 WORKDIR $HOME
 
-COPY target/sodata-server ./application
+COPY target/sodata-ogd-server ./application
 
 RUN chown $UID:0 . && \
     chmod 0775 . && \

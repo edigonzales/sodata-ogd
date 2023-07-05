@@ -321,7 +321,6 @@ public class App implements EntryPoint {
                 .element();
         rootTable.appendChild(mapsTableHead);
 
-        
         for (Object dataset : datasets) {
             HTMLTableSectionElement tbodyParent = tbody().element();
             
@@ -330,15 +329,40 @@ public class App implements EntryPoint {
             
             JsPropertyMap<?> datasetObj = Js.cast(dataset);
                         
+
             JsArray<?> resources;
+            // Zuerst habe ich es mit Js.cast -> catch exception versucht.
+            // Das funktioniert zwar im SuperDevMode aber interessanterweise
+            // wird keine Exception in Production geworfen.
+            if (datasetObj.nestedGet("Resources.@type") != null) {
+                JsPropertyMap<?> resourcesMap = Js.cast(datasetObj.get("Resources"));      
+                resources = JsArray.of(resourcesMap);
+            } else {
+                resources = Js.cast(datasetObj.get("Resources"));  
+            }
+            /*
+            JsArray<?> resources;            
             try {
                 resources = Js.cast(datasetObj.get("Resources"));  
                 console.log("ich konnte zum Array casten");
+                console.log(resources.length);
+//                if (!(resources.length > 0) && !(resources.length < 0)) {
+//                    console.log("length nicht grösser 0");
+//                } else {
+//                    throw new java.lang.ClassCastException();
+//                }
+//                if (resources.asList() == null) {
+//                    console.log("null");
+//                }
+//
+//                console.log(resources.getAt(0));
+
             } catch (java.lang.ClassCastException e) {
                 console.log("ich konnte nicht zum Array casten und muss es händisch machen.");
                 JsPropertyMap<?> resourcesMap = Js.cast(datasetObj.get("Resources"));      
                 resources = JsArray.of(resourcesMap);
             }
+            */
             
 //            List<JsPropertyMap<?>> resourcesList
 //            for (int i=0; i<resources.length; i++) {
@@ -360,17 +384,12 @@ public class App implements EntryPoint {
             
             // Title
             String title = ((JsString) datasetObj.get("Title")).normalize();
-            console.log(title);
             HTMLTableCellElement tdParentTitle = td().attr("colspan", "2").add(title).element();
             tr.appendChild(tdParentTitle);
             
             // Publication date
             JsPropertyMap<?> resourceTmp = Js.cast(resources.getAt(0));
-            console.log("foo1");
-            console.log(resources);
-            console.log(resourceTmp);
             String dateString = ((JsString) resourceTmp.get("lastPublishingDate")).normalize();
-            console.log("foo2");
             Date date = DateTimeFormat.getFormat("yyyy-MM-dd").parse(dateString);
             String formattedDateString = DateTimeFormat.getFormat("dd.MM.yyyy").format(date);
             tr.appendChild(td().add(formattedDateString).element()); 
@@ -441,9 +460,7 @@ public class App implements EntryPoint {
                     JsPropertyMap<?> resource = Js.cast(resourcesList.get(j));
                     String resourceName = ((JsString) resource.get("Title")).normalize();
                     
-                    console.log("foo3");
                     String resourceDateString = ((JsString) resource.get("lastPublishingDate")).normalize();
-                    console.log("foo4");
                     Date resourceDate = DateTimeFormat.getFormat("yyyy-MM-dd").parse(resourceDateString);
                     String formattedResourceDateString = DateTimeFormat.getFormat("dd.MM.yyyy").format(resourceDate);
                     
