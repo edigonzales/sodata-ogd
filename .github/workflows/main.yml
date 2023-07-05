@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
 
-# jobs:
+jobs:
 #   build-native:
 #     env:
 #       DOCKER_ACCOUNT: sogis
