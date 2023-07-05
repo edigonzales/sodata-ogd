@@ -333,7 +333,6 @@ public class App implements EntryPoint {
             JsArray<?> resources;
             try {
                 resources = Js.cast(datasetObj.get("Resources"));  
-                JsArray<?> foo = new JsArray();
                 console.log("ich konnte zum Array casten");
             } catch (java.lang.ClassCastException e) {
                 console.log("ich konnte nicht zum Array casten und muss es händisch machen.");
