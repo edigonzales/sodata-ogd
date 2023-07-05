@@ -28,6 +28,7 @@
           <SO_OGD_Metadata_20230629.Resource>
             <Identifier>ch.so.afu.abfallmengen_gemeinden</Identifier>
             <Title>Ablagerungsmengen in Deponien</Title>
+            <Description>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</Description>
             <Model>
               <SO_OGD_Metadata_20230629.ModelLink>
                 <Name>SO_AFU_Abfallmengen_Gemeinden_20230629</Name>
@@ -35,7 +36,7 @@
               </SO_OGD_Metadata_20230629.ModelLink>
             </Model>
             <ConfigId>ch.so.afu.abfallmengen_gemeinden</ConfigId>
-            <lastPublishingDate>2023-07-01</lastPublishingDate>
+            <lastPublishingDate>2023-07-04</lastPublishingDate>
             <ClassDescription>
               <SO_OGD_Metadata_20230629.ClassDescription>
                 <Name>Abfallmengen_Gemeinden</Name>

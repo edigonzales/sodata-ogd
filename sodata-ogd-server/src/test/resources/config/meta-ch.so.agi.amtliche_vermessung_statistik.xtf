@@ -28,6 +28,7 @@
           <SO_OGD_Metadata_20230629.Resource>
             <Identifier>ch.so.agi.amtliche_vermessung_statistik.umsatz</Identifier>
             <Title>Umsatz pro Jahr</Title>
+            <Description>Umsatz pro Jahr. Anzahl Gebäudemutationen und Grundstücksmutationen und Gesamtumsatz in Franken.</Description>
             <Model>
               <SO_OGD_Metadata_20230629.ModelLink>
                 <Name>SO_AGI_Amtliche_Vermessung_Statistik_Umsatz_20230625</Name>
@@ -35,7 +36,7 @@
               </SO_OGD_Metadata_20230629.ModelLink>
             </Model>
             <ConfigId>ch.so.agi.amtliche_vermessung_statistik.umsatz</ConfigId>
-            <lastPublishingDate>2023-07-01</lastPublishingDate>
+            <lastPublishingDate>2023-07-04</lastPublishingDate>
             <ClassDescription>
               <SO_OGD_Metadata_20230629.ClassDescription>
                 <Name>Umsatz</Name>
@@ -92,6 +93,7 @@
           <SO_OGD_Metadata_20230629.Resource>
             <Identifier>ch.so.agi.amtliche_vermessung_statistik.personal</Identifier>
             <Title>Personal in der amtlichen Vermessung</Title>
+            <Description>In der amtlichen Vermessung eingesetztes Personal aufgeteilt in verschiedene Gruppen.</Description>
             <Model>
               <SO_OGD_Metadata_20230629.ModelLink>
                 <Name>SO_AGI_Amtliche_Vermessung_Statistik_Personal_20230625</Name>
@@ -99,7 +101,7 @@
               </SO_OGD_Metadata_20230629.ModelLink>
             </Model>
             <ConfigId>ch.so.agi.amtliche_vermessung_statistik.personal</ConfigId>
-            <lastPublishingDate>2023-07-01</lastPublishingDate>
+            <lastPublishingDate>2023-07-04</lastPublishingDate>
             <ClassDescription>
               <SO_OGD_Metadata_20230629.ClassDescription>
                 <Name>Personal</Name>

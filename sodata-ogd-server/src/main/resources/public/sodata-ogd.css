@@ -19,7 +19,7 @@ body, div {
 
 .field-group input, .field-group textarea {
     font-family: Frutiger, 'Fira Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;   
-    font-size: 20px;   
+    font-size: 16px;   
     font-weight: 300;     
 }
 
@@ -59,7 +59,7 @@ body, div {
 .info {
     margin-top: 30px;
     /*font-size: 16px;*/
-    font-size: 20px;
+    font-size: 16px;
     font-style: normal;
 }
 
@@ -108,7 +108,7 @@ a.default-link:after {
 #datasets-table {
     margin-top: 40px;
     width: 100%;
-    font-size: 20px;    
+    font-size: 16px;    
 }
 
 #datasets-table th {
@@ -116,7 +116,7 @@ a.default-link:after {
 }
 
 #datasets-table tr {
-    line-height: 2.5;
+    line-height: 1.5;
     border-bottom: 1px solid rgb(238,238,238);
 }
 
@@ -172,7 +172,7 @@ a.badge-link:visited {
 }
 
 .model-header {
-    font-size: 20px !important;
+    font-size: 16px !important;
     color: #333333 !important;  
 }
 
@@ -184,7 +184,7 @@ a.badge-link:visited {
 }
 
 .modal .modal-content .modal-body {
-    font-size: 20px !important;
+    font-size: 16px !important;
     color: #333333 !important;
 }
 
@@ -193,15 +193,15 @@ a.badge-link:visited {
 }
 
 h4, .h4 {
-    font-size: 24px !important;
-}
-
-h5, .h5 {
     font-size: 20px !important;
 }
 
+h5, .h5 {
+    font-size: 16px !important;
+}
+
 .meta-dataset-description-paragraph {
-    padding-bottom: 20px;
+    padding-bottom: 16px;
 }
 
 .meta-table-description-paragraph-title {
@@ -230,7 +230,7 @@ h5, .h5 {
 }
 
 .meta-tables-paragraph {
-    padding-bottom: 20px;
+    padding-bottom: 16px;
 }
 
 .meta-table {
@@ -254,7 +254,7 @@ h5, .h5 {
 }
 
 .modal-paragraph {
-    padding-bottom: 20px;
+    padding-bottom: 16px;
 }
 
 .modal-meta-details {
