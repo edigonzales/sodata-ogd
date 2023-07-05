@@ -28,13 +28,16 @@ spring:
             additional-exclude: launcherDir/**
 
 management:
-    health:
-        probes:
-            enabled: true
+  health:
+    probes:
+      enabled: true
     endpoint:
-        health: 
-            show-details: always
-
+      health: 
+        show-details: always
+        livenessState:
+          enabled: true
+        readinessState:
+          enabled: true
 # spring:
 #     profiles:
 #         active: test 
