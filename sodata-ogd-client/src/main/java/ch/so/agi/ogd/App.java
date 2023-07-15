@@ -15,12 +15,18 @@ import java.util.List;
 import org.dominokit.domino.ui.badges.Badge;
 import org.dominokit.domino.ui.breadcrumbs.Breadcrumb;
 import org.dominokit.domino.ui.button.Button;
+import org.dominokit.domino.ui.collapsible.Collapsible;
 import org.dominokit.domino.ui.forms.TextBox;
 import org.dominokit.domino.ui.icons.Icons;
 import org.dominokit.domino.ui.modals.ModalDialog;
 import org.dominokit.domino.ui.style.Color;
 import org.dominokit.domino.ui.style.ColorScheme;
 import org.dominokit.domino.ui.themes.Theme;
+import org.dominokit.domino.ui.utils.DominoElement;
+import org.dominokit.domino.ui.utils.HasChangeHandlers.ChangeHandler;
+import org.dominokit.domino.ui.tag.TagsInput;
+import org.dominokit.domino.ui.tag.store.LocalTagsStore;
+import org.dominokit.domino.ui.collapsible.Accordion;
 
 import com.google.gwt.core.client.GWT;
 import org.gwtproject.safehtml.shared.SafeHtmlUtils;
@@ -81,6 +87,8 @@ public class App implements EntryPoint {
     private List<Object> datasets;
     private List<Object> fullDatasets;
 
+    TagsInput<String> themesTags;
+    
     // Abort controller for fetching from server
     private AbortController abortController = null;
 
@@ -260,17 +268,19 @@ public class App implements EntryPoint {
             final RequestInit init = RequestInit.create();
             init.setSignal(abortController.signal);
 
-            DomGlobal.fetch("/datasets?query=" + textBox.getValue().toLowerCase(), init).then(response -> {
+            String queryString = "";
+            if (themesTags.getValue() != null && themesTags.getValue().size() > 0) {
+                queryString = "?query=" + textBox.getValue().toLowerCase() + "&theme=" + String.join(",", themesTags.getValue());
+            } else {
+                queryString = "?query=" + textBox.getValue().toLowerCase();
+            }
+            
+            DomGlobal.fetch("/datasets"+queryString, init).then(response -> {
                 if (!response.ok) {
                     return null;
                 }
                 return response.text();
-            }).then(json -> {
-                //List<ThemePublicationDTO> filteredThemePublications = mapper.read(json);
-                //filteredThemePublications.sort(new ThemePublicationComparator());
-
-                //themePublicationListStore.setData(filteredThemePublications);
-                
+            }).then(json -> {                
                 JsArray<?> datasetsArray = Js.cast(Global.JSON.parse(json));
                 datasets = (List<Object>) datasetsArray.asList();
                 Collections.sort(datasets, new DatasetComparator());
@@ -291,7 +301,84 @@ public class App implements EntryPoint {
         topLevelContent.appendChild(div().id("search-panel").add(div().id("suggestbox-div").add(textBox)).element());
 
         updatingResultTableElement(datasets);
+                
+        LocalTagsStore<String> themesStore =
+                LocalTagsStore.<String>create()
+                    .addItem("Amtliche Vermessung", "Amtliche Vermessung")
+                    .addItem("Energie", "Energie")
+                    .addItem("Finanzen", "Finanzen");
+        themesTags = TagsInput.create("Themen", themesStore);
+        themesTags.setFocusColor(Color.RED_DARKEN_3);
+        themesTags.setTagsColor(ColorScheme.RED);
+
+        themesTags.addChangeHandler(new ChangeHandler<List<String>>() {
+            @Override
+            public void onValueChanged(List<String> value) {
+                if (value != null ) {
+                    if (abortController != null) {
+                        abortController.abort();
+                    }
+
+                    abortController = new AbortController();
+                    final RequestInit init = RequestInit.create();
+                    init.setSignal(abortController.signal);
+
+                    String queryString = "";
+                    if (textBox.getValue() != null && textBox.getValue().trim().length() > 0) {
+                        if (value.size() > 0) {
+                            queryString = "?query=" + textBox.getValue().toLowerCase() + "&theme=" + String.join(",", value);                            
+                        } else {
+                            queryString = "?query=" + textBox.getValue().toLowerCase();
+                        }
+                    } else {
+                        if (value.size() > 0) {
+                            queryString = "?theme=" + String.join(",", value);                            
+                        } else {
+                            // FIXME: gesamte Logik..
+                        }
+                    }
+                                        
+                    DomGlobal.fetch("/datasets"+queryString, init).then(response -> {
+                        if (!response.ok) {
+                            return null;
+                        }
+                        return response.text();
+                    }).then(json -> {
+                        JsArray<?> datasetsArray = Js.cast(Global.JSON.parse(json));
+                        datasets = (List<Object>) datasetsArray.asList();
+                        Collections.sort(datasets, new DatasetComparator());
+
+                        removeResults();
+                        updatingResultTableElement(datasets);
+                        
+                        updateUrlLocation(FILTER_PARAM_KEY, textBox.getValue().trim());
+
+                        abortController = null;
+
+                        return null;
+                    }).catch_(error -> {
+                        console.log(error);
+                        return null;
+                    });
+                }
+
+            }
+        });
         
+        HTMLElement details = (HTMLElement) DomGlobal.document.createElement("details");
+        details.className = "advanced-search-details";
+        HTMLElement summary = (HTMLElement) DomGlobal.document.createElement("summary");
+        summary.className = "advanced-search-summary";
+        summary.textContent = "Erweiterte Suche";
+
+        details.appendChild(summary);
+        details.appendChild(div().id("tagsinput-panel").add(div().id("tagsinput-div").add(themesTags)).element());
+        
+        topLevelContent.appendChild(div().id("advanced-search").add(div().id("XXX").add(details)).element());
+
+        
+        //topLevelContent.appendChild(div().id("tagsinput-panel").add(div().id("tagsinput-div").add(themesTags)).element());
+                
         topLevelContent.appendChild(rootTable);
         
         if (filter != null && filter.trim().length() > 0) {
@@ -424,8 +511,8 @@ public class App implements EntryPoint {
                     String identifier = ((JsString) datasetObj.get("Identifier")).normalize();
                     String resourceIdentifier = ((JsString) resource.get("Identifier")).normalize();
 
-                    String fileUrl = "https://s3.eu-central-1.amazonaws.com/ch.so.data-dev/" + identifier
-                            + "/" + resourceIdentifier + "."
+                    String fileUrl = "https://s3.eu-central-1.amazonaws.com/ch.so.data-dev/"
+                            + resourceIdentifier + "."
                             + ffExt;
                     
                     badgesElement.appendChild(a().css("badge-link")
@@ -490,8 +577,8 @@ public class App implements EntryPoint {
                         String identifier = ((JsString) datasetObj.get("Identifier")).normalize();
                         String resourceIdentifier = ((JsString) resource.get("Identifier")).normalize();
 
-                        String fileUrl = "https://s3.eu-central-1.amazonaws.com/ch.so.data-dev/" + identifier
-                                + "/" + resourceIdentifier + "."
+                        String fileUrl = "https://s3.eu-central-1.amazonaws.com/ch.so.data-dev/" 
+                                + resourceIdentifier + "."
                                 + ffExt;
                         
                         subBadgesElement.appendChild(a().css("badge-link")

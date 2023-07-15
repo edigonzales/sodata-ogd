@@ -105,8 +105,13 @@ a.default-link:after {
     margin-bottom: 30px;
 }
 
-#datasets-table {
+#tagsinput-panel {
     margin-top: 40px;
+    /*margin-bottom: 30px;*/
+}
+
+#datasets-table {
+    margin-top: 40px; 
     width: 100%;
     font-size: 16px;    
 }
@@ -126,6 +131,15 @@ a.default-link:after {
 
 #datasets-table tr:hover {
   background-color: rgb(238,238,238) !important;
+}
+
+.advanced-search-details {
+    /*padding-bottom: 15px;*/
+    font-size: 16px;
+}
+
+.advanced-search-summary {
+    display: list-item; /* firefox only */
 }
 
 .bg-l-4-grey {

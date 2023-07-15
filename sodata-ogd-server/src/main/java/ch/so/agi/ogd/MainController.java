@@ -1,5 +1,7 @@
 package ch.so.agi.ogd;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -19,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ch.interlis.iom.IomObject;
 import ch.so.agi.ogd.repository.InvalidLuceneQueryException;
@@ -41,6 +46,9 @@ public class MainController {
     
     @Autowired
     LuceneDatasetRepository luceneDatasetRepository;
+    
+    @Autowired
+    ObjectMapper objectMapper;
 
     @PostConstruct
     public void init() throws Exception {
@@ -63,12 +71,45 @@ public class MainController {
     }
 
     @RequestMapping(value = "/datasets", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public String searchThemePublications(@RequestParam(value="query", required=false) String searchTerms) { 
+    public String searchThemePublications(@RequestParam(value="query", required=false) String searchTerms, @RequestParam(value="theme", required=false) String searchThemes) {
+        
+        log.debug("searchThemes: " + searchThemes);
+        
         if (searchTerms == null || searchTerms.trim().length() == 0) {
-            return configService.getIomObjectJsonList().toString(); 
+            if (searchThemes != null) {
+                String[] searchThemesArray = searchThemes.toLowerCase().split(",");
+                List<String> filteredList = configService.getIomObjectJsonList().stream()
+                    .filter(r -> {
+                        Map<String, Object> dataset;
+                        try {
+                            dataset = objectMapper.readValue(r, HashMap.class);
+                            String datasetThemes = (String) dataset.get("Theme");
+                            if (datasetThemes!=null) {
+                                String[] datasetThemesArray = datasetThemes.toLowerCase().split(",");
+                                String[] intersection = Arrays.stream(searchThemesArray)
+                                        .distinct()
+                                        .filter(x -> Arrays.asList(datasetThemesArray).contains(x))
+                                        .toArray(String[]::new);
+                                if (intersection.length > 0) {
+                                    return true;
+                                }                   
+                            } else {
+                                return false;
+                            }
+                        } catch (JsonProcessingException e) {
+                            e.printStackTrace();
+                            throw new IllegalStateException(e);
+                        }
+                        return false;
+                    })
+                    .collect(Collectors.toList());
+                return filteredList.toString();
+            } else {
+                return configService.getIomObjectJsonList().toString();    
+            }            
         } else {
             List<Map<String, String>> results = null;
-            try {
+            try {                
                 results = luceneDatasetRepository.findByQuery(searchTerms, QUERY_MAX_RECORDS);
                 log.debug("Search for '" + searchTerms +"' found " + results.size() + " records");            
             } catch (LuceneSearcherException | InvalidLuceneQueryException e) {
@@ -79,6 +120,35 @@ public class MainController {
                     .map(r -> {
                         return configService.getIomObjectJsonMap().get(r.get("identifier"));
                     })
+                    .filter(r -> {
+                        Map<String, Object> dataset;
+                        if (searchThemes != null) {
+                            String[] searchThemesArray = searchThemes.toLowerCase().split(",");
+                            try {
+                                dataset = objectMapper.readValue(r, HashMap.class);
+                                String datasetThemes = (String) dataset.get("Theme");
+                                if (datasetThemes!=null) {
+                                    String[] datasetThemesArray = datasetThemes.toLowerCase().split(",");
+                                    String[] intersection = Arrays.stream(searchThemesArray)
+                                            .distinct()
+                                            .filter(x -> Arrays.asList(datasetThemesArray).contains(x))
+                                            .toArray(String[]::new);
+                                    if (intersection.length > 0) {
+                                        log.debug("Filter themes <{}> from search result", searchThemes);
+                                        return true;
+                                    }                   
+                                } else {
+                                    return false;
+                                }
+                            } catch (JsonProcessingException e) {
+                                e.printStackTrace();
+                                throw new IllegalStateException(e);
+                            }
+                            return false;                            
+                        } else {
+                            return true;
+                        }
+                    }) 
                     .collect(Collectors.toList());
             return resultList.toString();
         }
