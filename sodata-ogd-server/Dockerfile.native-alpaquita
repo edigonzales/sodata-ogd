@@ -4,6 +4,9 @@ ARG UID=1001
 RUN adduser -S sodataogd -u $UID
 
 WORKDIR /config
+
+COPY src/test/resources/config/ /config/
+
 RUN chown $UID:0 . && \
     chmod 0775 . && \
     ls -la
